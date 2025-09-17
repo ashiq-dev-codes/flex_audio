@@ -83,12 +83,14 @@ class _FlexAudioPlayerState extends State<FlexAudioPlayer> {
                           onPressed: () {
                             if (isPlaying) {
                               audioController.pause();
-                            } else {
-                              audioController.play(
-                                widget.audioPath,
-                                isFile: widget.isFile,
-                              );
+                              if (isActive) return;
                             }
+
+                            audioController.play(
+                              widget.audioPath,
+                              isFile: widget.isFile,
+                            );
+
                             if (!isActive) {
                               setState(() => _localPosition = Duration.zero);
                             }
