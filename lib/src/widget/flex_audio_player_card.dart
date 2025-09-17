@@ -105,8 +105,8 @@ class FlexAudioPlayerCard extends StatelessWidget {
                     : _format(isActive ? position : duration),
                 style: TextStyle(
                   fontSize: 12,
-                  color: iconColor,
                   fontWeight: FontWeight.w400,
+                  color: Colors.grey.shade600,
                 ),
               ),
             ),
