@@ -29,47 +29,83 @@ class _FlexAudioPlayerState extends State<FlexAudioPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    final controller = widget.audioController;
+    final audioController = widget.audioController;
 
     return ValueListenableBuilder<ProcessingState>(
-      valueListenable: controller.state,
-      builder: (context, state, _) {
-        final isActive = controller.currentPath.value == widget.audioPath;
-        final isLoading =
-            state == ProcessingState.loading ||
-            state == ProcessingState.buffering;
-        // final isDisabled = !isActive && !isLoading;
+      valueListenable: audioController.state,
+      builder: (context, currentState, _) {
+        return ValueListenableBuilder<String?>(
+          valueListenable: audioController.currentPath,
+          builder: (context, currentPath, _) {
+            final isActive = currentPath == widget.audioPath;
 
-        final position = isActive ? controller.position.value : _localPosition;
-        final duration = isActive ? controller.duration.value : Duration.zero;
+            return ValueListenableBuilder(
+              valueListenable: audioController.position,
+              builder: (context, currentPosition, _) {
+                return ValueListenableBuilder<Duration>(
+                  valueListenable: audioController.duration,
+                  builder: (context, currentDuration, _) {
+                    return ValueListenableBuilder<bool>(
+                      valueListenable: audioController.isPlaying,
+                      builder: (context, isPlaying, _) {
+                        // Only get position & duration if active
+                        final isLoading =
+                            currentState == ProcessingState.loading ||
+                            currentState == ProcessingState.buffering;
+                        // final isDisabled = !isActive && !isLoading;
 
-        final total = duration.inMilliseconds == 0
-            ? 1
-            : duration.inMilliseconds;
-        final value = position.inMilliseconds.clamp(0, total).toDouble();
+                        final position = isActive
+                            ? currentPosition
+                            : _localPosition;
+                        final duration = isActive
+                            ? currentDuration
+                            : Duration.zero;
 
-        return FlexAudioPlayerCard(
-          value: value,
-          position: position,
-          duration: duration,
-          isActive: isActive,
-          max: total.toDouble(),
-          isLoading: isLoading,
-          // isDisabled: isDisabled,
-          isPlaying: controller.isPlaying.value && !isLoading,
-          onPressed: () {
-            if (controller.isPlaying.value) {
-              controller.pause();
-            } else {
-              controller.play(widget.audioPath, isFile: widget.isFile);
-            }
-            if (!isActive) {
-              setState(() => _localPosition = Duration.zero);
-            }
+                        final total = duration.inMilliseconds == 0
+                            ? 1
+                            : duration.inMilliseconds;
+                        final value = position.inMilliseconds
+                            .clamp(0, total)
+                            .toDouble();
+
+                        return FlexAudioPlayerCard(
+                          value: value,
+                          position: position,
+                          duration: duration,
+                          isActive: isActive,
+                          max: total.toDouble(),
+                          isLoading: isLoading,
+                          // isDisabled: isDisabled,
+                          isPlaying:
+                              !audioController.hasCompleted &&
+                              isPlaying &&
+                              !isLoading,
+                          onPressed: () {
+                            if (isPlaying) {
+                              audioController.pause();
+                            } else {
+                              audioController.play(
+                                widget.audioPath,
+                                isFile: widget.isFile,
+                              );
+                            }
+                            if (!isActive) {
+                              setState(() => _localPosition = Duration.zero);
+                            }
+                          },
+                          onChanged: isActive
+                              ? (val) => audioController.seek(
+                                  Duration(milliseconds: val.toInt()),
+                                )
+                              : null,
+                        );
+                      },
+                    );
+                  },
+                );
+              },
+            );
           },
-          onChanged: isActive
-              ? (val) => controller.seek(Duration(milliseconds: val.toInt()))
-              : null,
         );
       },
     );
