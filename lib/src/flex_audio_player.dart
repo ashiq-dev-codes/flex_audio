@@ -5,13 +5,28 @@ import 'package:just_audio/just_audio.dart';
 class FlexAudioPlayer extends StatefulWidget {
   const FlexAudioPlayer({
     super.key,
+    this.padding,
+    this.iconSize,
+    this.showTime,
+    this.iconColor,
+    this.thumbColor,
+    this.trackColor,
+    this.borderRadius,
     this.isFile = false,
+    this.backgroundColor,
     required this.audioPath,
     required this.audioController,
   });
-
   final bool isFile;
+  final bool? showTime;
+  final double? iconSize;
   final String audioPath;
+  final Color? iconColor;
+  final Color? thumbColor;
+  final Color? trackColor;
+  final Color? backgroundColor;
+  final EdgeInsetsGeometry? padding;
+  final BorderRadiusGeometry? borderRadius;
   final FlexAudioPlayerController audioController;
 
   @override
@@ -75,6 +90,14 @@ class _FlexAudioPlayerState extends State<FlexAudioPlayer> {
                           isActive: isActive,
                           isLoading: isLoading,
                           max: total.toDouble(),
+                          padding: widget.padding,
+                          iconSize: widget.iconSize,
+                          showTime: widget.showTime,
+                          iconColor: widget.iconColor,
+                          thumbColor: widget.thumbColor,
+                          trackColor: widget.trackColor,
+                          borderRadius: widget.borderRadius,
+                          backgroundColor: widget.backgroundColor,
                           isPlaying:
                               !audioController.hasCompleted &&
                               isPlaying &&

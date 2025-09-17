@@ -3,56 +3,49 @@ import 'package:flutter/material.dart';
 class FlexAudioPlayerCard extends StatelessWidget {
   const FlexAudioPlayerCard({
     super.key,
-    required this.value,
-    required this.max,
-    required this.onPressed,
     this.onChanged,
+    required this.max,
+    required this.value,
+    this.iconSize = 28.0,
+    this.showTime = true,
+    this.isActive = false,
+    this.isPlaying = false,
+    this.isLoading = false,
+    required this.onPressed,
     this.position = Duration.zero,
     this.duration = Duration.zero,
-    this.isPlaying = false,
-    this.isActive = false,
-    this.isLoading = false,
-    this.backgroundColor = Colors.white,
+    this.iconColor = Colors.white,
     this.trackColor = Colors.blueAccent,
     this.thumbColor = Colors.blueAccent,
-    this.iconColor = Colors.white,
+    this.backgroundColor = Colors.white,
+    this.borderRadius = const BorderRadius.all(Radius.circular(8)),
     this.padding = const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-    this.borderRadius = 8.0,
-    this.showTime = true,
-    this.iconSize = 28.0,
   });
-
-  final double value;
   final double max;
-  final bool isPlaying;
+  final double value;
   final bool isActive;
+  final bool? showTime;
+  final bool isPlaying;
   final bool isLoading;
+  final Color? iconColor;
+  final double? iconSize;
+  final Color? thumbColor;
+  final Color? trackColor;
   final Duration position;
   final Duration duration;
+  final Color? backgroundColor;
   final VoidCallback onPressed;
+  final EdgeInsetsGeometry? padding;
+  final BorderRadiusGeometry? borderRadius;
   final Function(double value)? onChanged;
-
-  final Color backgroundColor;
-  final Color trackColor;
-  final Color thumbColor;
-  final Color iconColor;
-  final EdgeInsetsGeometry padding;
-  final double borderRadius;
-  final bool showTime;
-  final double iconSize;
 
   @override
   Widget build(BuildContext context) {
-    final effectiveIconColor = iconColor;
-    final effectiveTrackColor = trackColor;
-    final effectiveThumbColor = thumbColor;
-    final effectiveBackgroundColor = backgroundColor;
-
     return Container(
       padding: padding,
       decoration: BoxDecoration(
-        color: effectiveBackgroundColor,
-        borderRadius: BorderRadius.circular(borderRadius),
+        color: backgroundColor,
+        borderRadius: borderRadius,
       ),
       child: Row(
         children: [
@@ -62,8 +55,8 @@ class FlexAudioPlayerCard extends StatelessWidget {
               width: 42,
               height: 42,
               decoration: BoxDecoration(
+                color: trackColor,
                 shape: BoxShape.circle,
-                color: effectiveTrackColor,
               ),
               child: Center(
                 child: isLoading
@@ -72,15 +65,15 @@ class FlexAudioPlayerCard extends StatelessWidget {
                         height: 20,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          color: effectiveIconColor,
+                          color: iconColor,
                         ),
                       )
                     : Icon(
                         isActive && isPlaying
                             ? Icons.pause_rounded
                             : Icons.play_arrow_rounded,
-                        color: effectiveIconColor,
                         size: iconSize,
+                        color: iconColor,
                       ),
               ),
             ),
@@ -89,21 +82,21 @@ class FlexAudioPlayerCard extends StatelessWidget {
           Expanded(
             child: SliderTheme(
               data: SliderTheme.of(context).copyWith(
-                thumbColor: effectiveThumbColor,
-                overlayShape: SliderComponentShape.noOverlay,
                 trackHeight: 2.5,
+                thumbColor: thumbColor,
+                overlayShape: SliderComponentShape.noOverlay,
               ),
               child: Slider(
                 min: 0,
                 max: max,
                 onChanged: onChanged,
+                activeColor: trackColor,
                 value: value.clamp(0, max),
-                activeColor: effectiveTrackColor,
-                inactiveColor: effectiveTrackColor.withValues(alpha: 0.4),
+                inactiveColor: trackColor?.withValues(alpha: 0.4),
               ),
             ),
           ),
-          if (showTime)
+          if (showTime == true)
             Padding(
               padding: const EdgeInsets.only(left: 4),
               child: Text(
@@ -112,7 +105,7 @@ class FlexAudioPlayerCard extends StatelessWidget {
                     : _format(isActive ? position : duration),
                 style: TextStyle(
                   fontSize: 12,
-                  color: effectiveIconColor,
+                  color: iconColor,
                   fontWeight: FontWeight.w400,
                 ),
               ),
