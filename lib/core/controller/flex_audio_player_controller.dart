@@ -13,7 +13,7 @@ class FlexAudioPlayerController {
 
   VoidCallback? onPlay;
 
-  FlexAudioController() {
+  FlexAudioPlayerController() {
     init();
   }
 
