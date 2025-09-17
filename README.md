@@ -96,4 +96,4 @@ Contributions are welcome! Feel free to open an issue or submit a pull request.
 
 ## License
 
-MIT License © \[Your Name]
+This package is licensed under the [MIT License](LICENSE).
