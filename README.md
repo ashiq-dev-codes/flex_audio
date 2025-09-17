@@ -1,11 +1,6 @@
 # flex\_audio
 
-[![pub package](https://img.shields.io/pub/v/flex_audio)](https://pub.dev/packages/flex_audio)
-[![Flutter](https://img.shields.io/badge/flutter-2.5+-blue)](https://flutter.dev)
-
 **flex\_audio** is a **flexible and customizable audio player** for Flutter apps. It works great for chat apps but is fully usable in any Flutter project. Easily play local or network audio, with multiple UI styles and full playback controls.
-
-[![pub package](https://img.shields.io/pub/v/corextra.svg)](https://pub.dev/packages/corextra)
 
 ---
 
