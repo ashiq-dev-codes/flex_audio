@@ -3,10 +3,10 @@ import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('AudioController Tests', () {
-    late FlexAudioController audioController;
+    late FlexAudioPlayerController audioController;
 
     setUp(() {
-      audioController = FlexAudioController();
+      audioController = FlexAudioPlayerController();
     });
 
     test('Initial state should be correct', () {

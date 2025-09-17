@@ -13,7 +13,7 @@ class FlexAudioPlayer extends StatefulWidget {
   final int style;
   final bool isFile;
   final String audioPath;
-  final FlexAudioController audioController;
+  final FlexAudioPlayerController audioController;
 
   @override
   State<FlexAudioPlayer> createState() => _FlexAudioPlayerState();
@@ -85,7 +85,7 @@ class _FlexAudioPlayerState extends State<FlexAudioPlayer> {
     bool isPlaying = false,
     Duration duration = Duration.zero,
     Duration position = Duration.zero,
-    required FlexAudioController audioController,
+    required FlexAudioPlayerController audioController,
   }) {
     switch (widget.style) {
       case 2:

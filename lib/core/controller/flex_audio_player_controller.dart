@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 
-class FlexAudioController {
+class FlexAudioPlayerController {
   // static final FlexAudioController _instance =
   //     FlexAudioController._internal();
   // factory FlexAudioController() => _instance;

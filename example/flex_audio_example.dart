@@ -27,17 +27,19 @@ class AudioDemoPage extends StatefulWidget {
 }
 
 class _AudioDemoPageState extends State<AudioDemoPage> {
-  late final FlexAudioController audioController;
+  late final FlexAudioPlayerController audioController;
 
   @override
   void initState() {
     super.initState();
-    audioController = FlexAudioController();
+
+    audioController = FlexAudioPlayerController();
   }
 
   @override
   void dispose() {
     audioController.dispose();
+
     super.dispose();
   }
 
