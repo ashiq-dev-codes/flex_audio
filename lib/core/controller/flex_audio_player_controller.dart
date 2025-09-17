@@ -61,6 +61,9 @@ class FlexAudioPlayerController {
   }) async {
     final isSamePath = _currentPath.value == path;
     if (!isSamePath) {
+      // Clear previous state to prevent wrong widget showing "loading"
+      _state.value = ProcessingState.idle;
+
       await _player.stop();
       if (isFile) {
         await _player.setFilePath(path);

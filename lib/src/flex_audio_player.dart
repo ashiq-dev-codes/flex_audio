@@ -49,11 +49,10 @@ class _FlexAudioPlayerState extends State<FlexAudioPlayer> {
                       valueListenable: audioController.isPlaying,
                       builder: (context, isPlaying, _) {
                         // Only get position & duration if active
-                        print('FP --Service: $currentState');
                         final isLoading =
-                            (isActive &&
-                                currentState == ProcessingState.loading) ||
-                            (currentState == ProcessingState.buffering);
+                            isActive &&
+                                currentState == ProcessingState.loading ||
+                            currentState == ProcessingState.buffering;
 
                         final position = isActive
                             ? currentPosition
