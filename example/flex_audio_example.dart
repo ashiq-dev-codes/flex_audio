@@ -57,7 +57,6 @@ class _AudioDemoPageState extends State<AudioDemoPage> {
             FlexAudioPlayer(
               audioPath: testAudioUrl,
               audioController: audioController,
-              style: 1,
             ),
             const SizedBox(height: 20),
             Row(
