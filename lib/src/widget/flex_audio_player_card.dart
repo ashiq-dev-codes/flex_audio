@@ -24,19 +24,19 @@ class FlexAudioPlayerCard extends StatelessWidget {
   final double max;
   final double value;
   final bool isActive;
-  final bool? showTime;
+  final bool showTime;
   final bool isPlaying;
   final bool isLoading;
-  final Color? iconColor;
-  final double? iconSize;
-  final Color? thumbColor;
-  final Color? trackColor;
+  final Color iconColor;
+  final double iconSize;
+  final Color thumbColor;
+  final Color trackColor;
   final Duration position;
   final Duration duration;
-  final Color? backgroundColor;
+  final Color backgroundColor;
   final VoidCallback onPressed;
-  final EdgeInsetsGeometry? padding;
-  final BorderRadiusGeometry? borderRadius;
+  final EdgeInsetsGeometry padding;
+  final BorderRadiusGeometry borderRadius;
   final Function(double value)? onChanged;
 
   @override
@@ -92,7 +92,7 @@ class FlexAudioPlayerCard extends StatelessWidget {
                 onChanged: onChanged,
                 activeColor: trackColor,
                 value: value.clamp(0, max),
-                inactiveColor: trackColor?.withValues(alpha: 0.4),
+                inactiveColor: trackColor.withValues(alpha: 0.4),
               ),
             ),
           ),
