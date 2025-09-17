@@ -12,7 +12,6 @@ class FlexAudioPlayerCard extends StatelessWidget {
     this.isPlaying = false,
     this.isActive = false,
     this.isLoading = false,
-    this.isDisabled = false,
     this.backgroundColor = Colors.white,
     this.trackColor = Colors.blueAccent,
     this.thumbColor = Colors.blueAccent,
@@ -28,7 +27,6 @@ class FlexAudioPlayerCard extends StatelessWidget {
   final bool isPlaying;
   final bool isActive;
   final bool isLoading;
-  final bool isDisabled;
   final Duration position;
   final Duration duration;
   final VoidCallback onPressed;
@@ -45,18 +43,10 @@ class FlexAudioPlayerCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final effectiveTrackColor = isDisabled
-        ? trackColor.withValues(alpha: 0.3)
-        : trackColor;
-    final effectiveThumbColor = isDisabled
-        ? thumbColor.withValues(alpha: 0.3)
-        : thumbColor;
-    final effectiveIconColor = isDisabled
-        ? iconColor.withValues(alpha: 0.3)
-        : iconColor;
-    final effectiveBackgroundColor = isDisabled
-        ? backgroundColor.withValues(alpha: 0.5)
-        : backgroundColor;
+    final effectiveIconColor = iconColor;
+    final effectiveTrackColor = trackColor;
+    final effectiveThumbColor = thumbColor;
+    final effectiveBackgroundColor = backgroundColor;
 
     return Container(
       padding: padding,
@@ -67,7 +57,7 @@ class FlexAudioPlayerCard extends StatelessWidget {
       child: Row(
         children: [
           InkWell(
-            onTap: isDisabled || isLoading ? null : onPressed,
+            onTap: isLoading ? null : onPressed,
             child: Container(
               width: 42,
               height: 42,
@@ -106,9 +96,9 @@ class FlexAudioPlayerCard extends StatelessWidget {
               child: Slider(
                 min: 0,
                 max: max,
+                onChanged: onChanged,
                 value: value.clamp(0, max),
                 activeColor: effectiveTrackColor,
-                onChanged: isDisabled ? null : onChanged,
                 inactiveColor: effectiveTrackColor.withValues(alpha: 0.4),
               ),
             ),

@@ -53,7 +53,6 @@ class _FlexAudioPlayerState extends State<FlexAudioPlayer> {
                             isActive &&
                                 currentState == ProcessingState.loading ||
                             currentState == ProcessingState.buffering;
-                        // final isDisabled = !isActive && !isLoading;
 
                         final position = isActive
                             ? currentPosition
@@ -74,9 +73,8 @@ class _FlexAudioPlayerState extends State<FlexAudioPlayer> {
                           position: position,
                           duration: duration,
                           isActive: isActive,
-                          max: total.toDouble(),
                           isLoading: isLoading,
-                          // isDisabled: isDisabled,
+                          max: total.toDouble(),
                           isPlaying:
                               !audioController.hasCompleted &&
                               isPlaying &&
