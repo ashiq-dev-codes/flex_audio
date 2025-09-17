@@ -1,40 +1,104 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# flex\_audio
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages).
+[![pub package](https://img.shields.io/pub/v/flex_audio)](https://pub.dev/packages/flex_audio)
+[![Flutter](https://img.shields.io/badge/flutter-2.5+-blue)](https://flutter.dev)
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages).
--->
+**flex\_audio** is a **flexible and customizable audio player** for Flutter apps. It works great for chat apps but is fully usable in any Flutter project. Easily play local or network audio, with multiple UI styles and full playback controls.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+[![pub package](https://img.shields.io/pub/v/corextra.svg)](https://pub.dev/packages/corextra)
+
+---
 
 ## Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+* Play audio from **local files** or **network URLs**.
+* Supports **pause, stop, seek**, and **playback progress**.
+* **Multiple customizable UI styles** for audio player widgets.
+* Fully **controller-driven**: separate playback logic from UI.
+* Lightweight and **easy to integrate** into any Flutter app.
+* Built-in **duration formatting**, slider, and play button widgets.
+* Extensible: add new styles or integrate with other Flutter widgets easily.
 
-## Getting started
+---
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+## Getting Started
 
-## Usage
+Add this package to your Dart or Flutter project by adding this line to your `pubspec.yaml`:
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
+```yaml
+dependencies:
+  flex_audio: ^1.0.0
 ```
 
-## Additional information
+Then import it in your Dart code:
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
-# flex_audio
+```dart
+import 'package:flex_audio/flex_audio.dart';
+```
+
+---
+
+## Basic Usage
+
+### 1. Create an Audio Controller
+
+```dart
+final audioController = AudioController();
+```
+
+### 2. Add the Audio Player Widget
+
+```dart
+ChatAudioPlayer(
+  audioPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+  audioController: audioController,
+);
+```
+
+### 3. Control Playback
+
+```dart
+// Play
+audioController.play('https://example.com/audio.mp3');
+
+// Pause
+audioController.pause();
+
+// Stop
+audioController.stop();
+
+// Seek
+audioController.seek(Duration(seconds: 30));
+```
+
+---
+
+## Advanced Usage
+
+### Using Multiple Styles
+
+```dart
+ChatAudioPlayer(
+  audioPath: 'audio_file.mp3',
+  audioController: audioController,
+  style: 2, // Switch between available UI styles
+);
+```
+
+---
+
+## Example
+
+See the `example/` folder in this package for a complete usage demo.
+
+---
+
+## Contributing
+
+Contributions are welcome! Feel free to open an issue or submit a pull request.
+
+---
+
+## License
+
+MIT License © \[Your Name]
