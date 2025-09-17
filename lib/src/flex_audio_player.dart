@@ -50,7 +50,8 @@ class _FlexAudioPlayerState extends State<FlexAudioPlayer> {
                       builder: (context, isPlaying, _) {
                         // Only get position & duration if active
                         final isLoading =
-                            currentState == ProcessingState.loading ||
+                            isActive &&
+                                currentState == ProcessingState.loading ||
                             currentState == ProcessingState.buffering;
                         // final isDisabled = !isActive && !isLoading;
 
