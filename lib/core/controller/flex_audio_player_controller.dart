@@ -59,6 +59,9 @@ class FlexAudioPlayerController {
     bool isFile = false,
     VoidCallback? onStop,
   }) async {
+    print('F --Service 1: $isFile');
+    print('F --Service 2: $path');
+
     final isSamePath = _currentPath.value == path;
     if (!isSamePath) {
       await _player.stop();
