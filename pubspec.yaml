@@ -1,7 +1,8 @@
 name: flex_audio
-description: "A new Flutter package project."
-version: 0.0.1
-homepage:
+description: A flexible and customizable audio player for Flutter apps.
+version: 1.0.0
+homepage: https://github.com/ashiq-dev-codes/flex_audio
+repository: https://github.com/ashiq-dev-codes/flex_audio.git
 
 environment:
   sdk: ^3.9.2
@@ -10,7 +11,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  
+
   corextra: ^1.1.1
   just_audio: ^0.10.5
 
