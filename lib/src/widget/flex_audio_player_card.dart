@@ -80,6 +80,7 @@ class FlexAudioPlayerCard extends StatelessWidget {
 
           Expanded(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SliderTheme(
                   data: SliderTheme.of(context).copyWith(
