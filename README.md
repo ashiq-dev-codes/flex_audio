@@ -9,12 +9,12 @@
 ## Features
 
 * Play audio from **local files** or **network URLs**.
-* Supports **pause, stop, seek**, and **playback progress**.
-* **Multiple customizable UI styles** for audio player widgets.
-* Fully **controller-driven**: separate playback logic from UI.
+* Supports **play, pause, stop, seek**, and playback progress.
+* **Highly customizable UI** via `FlexAudioPlayerCard`.
+* **Controller-driven**: `FlexAudioPlayerController` keeps playback logic separate from UI.
 * Lightweight and **easy to integrate** into any Flutter app.
-* Built-in **duration formatting**, slider, and play button widgets.
-* Extensible: add new styles or integrate with other Flutter widgets easily.
+* Built-in **duration formatting**, slider, and play/pause button widgets.
+* Extensible: add new styles or replace controls with your own widgets.
 
 ---
 
@@ -40,13 +40,13 @@ import 'package:flex_audio/flex_audio.dart';
 ### 1. Create an Audio Controller
 
 ```dart
-final audioController = AudioController();
+final audioController = FlexAudioPlayerController();
 ```
 
 ### 2. Add the Audio Player Widget
 
 ```dart
-ChatAudioPlayer(
+FlexAudioPlayer(
   audioPath: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
   audioController: audioController,
 );
@@ -72,13 +72,22 @@ audioController.seek(Duration(seconds: 30));
 
 ## Advanced Usage
 
-### Using Multiple Styles
+### Customizing the Player
 
 ```dart
-ChatAudioPlayer(
+FlexAudioPlayer(
   audioPath: 'audio_file.mp3',
   audioController: audioController,
-  style: 2, // Switch between available UI styles
+  iconColor: Colors.white,
+  controlButtonColor: Colors.blue,
+  durationTextPosition: DurationTextPositionEnum.end,
+  buildControlButton: (isActive, isPlaying, isLoading) {
+    return Icon(
+      isPlaying ? Icons.pause_circle_filled : Icons.play_circle_fill,
+      color: Colors.red,
+      size: 42,
+    );
+  },
 );
 ```
 
