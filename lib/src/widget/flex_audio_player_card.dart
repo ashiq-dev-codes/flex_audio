@@ -18,6 +18,7 @@ class FlexAudioPlayerCard extends StatelessWidget {
     this.backgroundColor,
     this.activeTrackColor,
     this.isActive = false,
+    this.autofocus = false,
     this.isPlaying = false,
     this.isLoading = false,
     this.durationTextStyle,
@@ -32,9 +33,10 @@ class FlexAudioPlayerCard extends StatelessWidget {
   final double max;
   final double value;
   final bool isActive;
-  final bool? showTime;
+  final bool autofocus;
   final bool isPlaying;
   final bool isLoading;
+  final bool? showTime;
   final Color? iconColor;
   final double? iconSize;
   final Widget? playIcon;
@@ -91,6 +93,7 @@ class FlexAudioPlayerCard extends StatelessWidget {
                   child: Slider(
                     min: 0,
                     max: max,
+                    autofocus: autofocus,
                     onChanged: onChanged,
                     value: value.clamp(0, max),
                     inactiveColor:

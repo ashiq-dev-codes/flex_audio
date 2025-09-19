@@ -16,6 +16,7 @@ class FlexAudioPlayer extends StatefulWidget {
     this.isFile = false,
     this.backgroundColor,
     this.activeTrackColor,
+    this.autofocus = false,
     this.durationTextStyle,
     required this.audioPath,
     this.buildControlButton,
@@ -25,6 +26,7 @@ class FlexAudioPlayer extends StatefulWidget {
     this.durationTextPosition = DurationTextPositionEnum.none,
   });
   final bool isFile;
+  final bool autofocus;
   final bool? showTime;
   final double? iconSize;
   final Color? iconColor;
@@ -109,6 +111,7 @@ class _FlexAudioPlayerState extends State<FlexAudioPlayer> {
                           iconSize: widget.iconSize,
                           showTime: widget.showTime,
                           playIcon: widget.playIcon,
+                          autofocus: widget.autofocus,
                           iconColor: widget.iconColor,
                           pauseIcon: widget.pauseIcon,
                           thumbColor: widget.thumbColor,
