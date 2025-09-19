@@ -14,8 +14,10 @@ class FlexAudioPlayer extends StatefulWidget {
     this.borderRadius,
     this.isFile = false,
     this.backgroundColor,
+    this.durationTextStyle,
     required this.audioPath,
     required this.audioController,
+    this.durationTextPosition = DurationTextPositionEnum.none,
   });
   final bool isFile;
   final bool? showTime;
@@ -26,8 +28,10 @@ class FlexAudioPlayer extends StatefulWidget {
   final Color? thumbColor;
   final Color? backgroundColor;
   final EdgeInsetsGeometry? padding;
+  final TextStyle? durationTextStyle;
   final BorderRadiusGeometry? borderRadius;
   final FlexAudioPlayerController audioController;
+  final DurationTextPositionEnum durationTextPosition;
 
   @override
   State<FlexAudioPlayer> createState() => _FlexAudioPlayerState();
@@ -98,6 +102,8 @@ class _FlexAudioPlayerState extends State<FlexAudioPlayer> {
                           trackColor: widget.trackColor,
                           borderRadius: widget.borderRadius,
                           backgroundColor: widget.backgroundColor,
+                          durationTextStyle: widget.durationTextStyle,
+                          durationTextPosition: widget.durationTextPosition,
                           isPlaying:
                               !audioController.hasCompleted &&
                               isPlaying &&
