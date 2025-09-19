@@ -8,7 +8,9 @@ class FlexAudioPlayer extends StatefulWidget {
     this.padding,
     this.iconSize,
     this.showTime,
+    this.playIcon,
     this.iconColor,
+    this.pauseIcon,
     this.trackColor,
     this.thumbColor,
     this.borderRadius,
@@ -23,9 +25,11 @@ class FlexAudioPlayer extends StatefulWidget {
   final bool? showTime;
   final double? iconSize;
   final Color? iconColor;
+  final Widget? playIcon;
   final String audioPath;
   final Color? trackColor;
   final Color? thumbColor;
+  final Widget? pauseIcon;
   final Color? backgroundColor;
   final EdgeInsetsGeometry? padding;
   final TextStyle? durationTextStyle;
@@ -97,7 +101,9 @@ class _FlexAudioPlayerState extends State<FlexAudioPlayer> {
                           padding: widget.padding,
                           iconSize: widget.iconSize,
                           showTime: widget.showTime,
+                          playIcon: widget.playIcon,
                           iconColor: widget.iconColor,
+                          pauseIcon: widget.pauseIcon,
                           thumbColor: widget.thumbColor,
                           trackColor: widget.trackColor,
                           borderRadius: widget.borderRadius,
