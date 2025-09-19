@@ -12,16 +12,18 @@ class FlexAudioPlayerCard extends StatelessWidget {
     this.iconColor,
     this.pauseIcon,
     this.thumbColor,
-    this.trackColor,
     this.borderRadius,
     required this.max,
     required this.value,
     this.backgroundColor,
+    this.activeTrackColor,
     this.isActive = false,
     this.isPlaying = false,
     this.isLoading = false,
     this.durationTextStyle,
     required this.onPressed,
+    this.inactiveTrackColor,
+    this.buttonBackgroundColor,
     this.position = Duration.zero,
     this.duration = Duration.zero,
     this.durationTextPosition = DurationTextPositionEnum.none,
@@ -36,13 +38,15 @@ class FlexAudioPlayerCard extends StatelessWidget {
   final double? iconSize;
   final Widget? playIcon;
   final Color? thumbColor;
-  final Color? trackColor;
   final Widget? pauseIcon;
   final Duration position;
   final Duration duration;
   final Color? backgroundColor;
   final VoidCallback onPressed;
+  final Color? activeTrackColor;
+  final Color? inactiveTrackColor;
   final EdgeInsetsGeometry? padding;
+  final Color? buttonBackgroundColor;
   final TextStyle? durationTextStyle;
   final Function(double value)? onChanged;
   final BorderRadiusGeometry? borderRadius;
@@ -70,7 +74,7 @@ class FlexAudioPlayerCard extends StatelessWidget {
               height: 42,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: trackColor ?? defaultValue.primary,
+                color: buttonBackgroundColor ?? defaultValue.primary,
               ),
               child: Center(
                 child: isLoading
@@ -103,9 +107,10 @@ class FlexAudioPlayerCard extends StatelessWidget {
                     max: max,
                     onChanged: onChanged,
                     value: value.clamp(0, max),
-                    activeColor: trackColor ?? defaultValue.primary,
-                    inactiveColor: (trackColor ?? defaultValue.primary)
-                        .withValues(alpha: 0.4),
+                    inactiveColor:
+                        inactiveTrackColor ??
+                        defaultValue.primary.withValues(alpha: 0.4),
+                    activeColor: activeTrackColor ?? defaultValue.primary,
                   ),
                 ),
 
