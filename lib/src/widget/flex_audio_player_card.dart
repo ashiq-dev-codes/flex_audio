@@ -22,9 +22,9 @@ class FlexAudioPlayerCard extends StatelessWidget {
     this.isLoading = false,
     this.durationTextStyle,
     this.buildControlButton,
+    this.controlButtonColor,
     required this.onPressed,
     this.inactiveTrackColor,
-    this.buttonBackgroundColor,
     this.position = Duration.zero,
     this.duration = Duration.zero,
     this.durationTextPosition = DurationTextPositionEnum.none,
@@ -45,9 +45,9 @@ class FlexAudioPlayerCard extends StatelessWidget {
   final Color? backgroundColor;
   final VoidCallback onPressed;
   final Color? activeTrackColor;
+  final Color? controlButtonColor;
   final Color? inactiveTrackColor;
   final EdgeInsetsGeometry? padding;
-  final Color? buttonBackgroundColor;
   final TextStyle? durationTextStyle;
   final Function(double value)? onChanged;
   final BorderRadiusGeometry? borderRadius;
@@ -162,7 +162,7 @@ class FlexAudioPlayerCard extends StatelessWidget {
       height: 42,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: buttonBackgroundColor ?? defaultValue.primary,
+        color: controlButtonColor ?? defaultValue.primary,
       ),
       child: Center(
         child: isLoading
