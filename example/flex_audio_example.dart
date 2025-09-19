@@ -1,4 +1,3 @@
-// flex_audio_example.dart
 import 'package:flex_audio/flex_audio.dart';
 import 'package:flutter/material.dart';
 
@@ -27,12 +26,12 @@ class AudioDemoPage extends StatefulWidget {
 }
 
 class _AudioDemoPageState extends State<AudioDemoPage> {
-  late final FlexAudioController audioController;
+  late final FlexAudioPlayerController audioController;
 
   @override
   void initState() {
     super.initState();
-    audioController = FlexAudioController();
+    audioController = FlexAudioPlayerController();
   }
 
   @override
@@ -55,7 +54,27 @@ class _AudioDemoPageState extends State<AudioDemoPage> {
             FlexAudioPlayer(
               audioPath: testAudioUrl,
               audioController: audioController,
-              style: 1,
+              showTime: true,
+              activeTrackColor: Colors.blue,
+              inactiveTrackColor: Colors.blue.withOpacity(0.3),
+              controlButtonColor: Colors.blue,
+              backgroundColor: Colors.grey.shade200,
+              borderRadius: BorderRadius.circular(12),
+              buildControlButton: (isActive, isPlaying, isLoading) {
+                if (isLoading) {
+                  return const SizedBox(
+                    width: 24,
+                    height: 24,
+                    child: CircularProgressIndicator(strokeWidth: 2),
+                  );
+                }
+                return Icon(
+                  isPlaying ? Icons.pause_circle : Icons.play_circle,
+                  size: 40,
+                  color: isActive ? Colors.blue : Colors.grey,
+                );
+              },
+              durationTextPosition: DurationTextPositionEnum.end,
             ),
             const SizedBox(height: 20),
             Row(

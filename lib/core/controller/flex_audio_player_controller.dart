@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:just_audio/just_audio.dart';
 
-class FlexAudioController {
+class FlexAudioPlayerController {
   // static final FlexAudioController _instance =
   //     FlexAudioController._internal();
   // factory FlexAudioController() => _instance;
@@ -13,12 +13,15 @@ class FlexAudioController {
 
   VoidCallback? onPlay;
 
-  FlexAudioController() {
+  FlexAudioPlayerController() {
     init();
   }
 
   bool _isDisposed = false;
   final AudioPlayer _player = AudioPlayer();
+  final ValueNotifier<ProcessingState> _state = ValueNotifier(
+    ProcessingState.idle,
+  );
   final ValueNotifier<bool> _isPlaying = ValueNotifier(false);
   final ValueNotifier<String?> _currentPath = ValueNotifier(null);
   final ValueNotifier<Duration> _position = ValueNotifier(Duration.zero);
@@ -27,6 +30,7 @@ class FlexAudioController {
   ValueNotifier<bool> get isPlaying => _isPlaying;
   ValueNotifier<Duration> get duration => _duration;
   ValueNotifier<Duration> get position => _position;
+  ValueNotifier<ProcessingState> get state => _state;
   ValueNotifier<String?> get currentPath => _currentPath;
   bool get hasCompleted => _player.processingState == ProcessingState.completed;
 
@@ -41,8 +45,10 @@ class FlexAudioController {
 
     _player.playerStateStream.listen((state) {
       _isPlaying.value = state.playing;
+      _state.value = state.processingState;
+
       if (state.processingState == ProcessingState.completed) {
-        _isPlaying.value = false;
+        _state.value = ProcessingState.idle;
         _position.value = Duration.zero;
       }
     });
