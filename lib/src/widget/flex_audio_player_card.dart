@@ -6,9 +6,11 @@ class FlexAudioPlayerCard extends StatelessWidget {
     super.key,
     this.padding,
     this.iconSize,
+    this.playIcon,
     this.showTime,
     this.onChanged,
     this.iconColor,
+    this.pauseIcon,
     this.thumbColor,
     this.trackColor,
     this.borderRadius,
@@ -32,8 +34,10 @@ class FlexAudioPlayerCard extends StatelessWidget {
   final bool isLoading;
   final Color? iconColor;
   final double? iconSize;
+  final Widget? playIcon;
   final Color? thumbColor;
   final Color? trackColor;
+  final Widget? pauseIcon;
   final Duration position;
   final Duration duration;
   final Color? backgroundColor;
@@ -78,13 +82,9 @@ class FlexAudioPlayerCard extends StatelessWidget {
                           color: iconColor ?? defaultValue.white,
                         ),
                       )
-                    : Icon(
-                        isActive && isPlaying
-                            ? Icons.pause_rounded
-                            : Icons.play_arrow_rounded,
-                        color: iconColor ?? defaultValue.white,
-                        size: iconSize ?? defaultValue.iconSize,
-                      ),
+                    : isActive && isPlaying
+                    ? pauseIcon ?? _defaultPauseIcon
+                    : playIcon ?? _defaultPlayIcon,
               ),
             ),
           ),
@@ -126,6 +126,26 @@ class FlexAudioPlayerCard extends StatelessWidget {
     final minutes = duration.inMinutes.toString().padLeft(2, '0');
     final seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
     return '$minutes:$seconds';
+  }
+
+  Widget get _defaultPauseIcon {
+    final defaultValue = FlexAudioPlayerCardDefaultValue();
+
+    return Icon(
+      Icons.pause_rounded,
+      color: iconColor ?? defaultValue.white,
+      size: iconSize ?? defaultValue.iconSize,
+    );
+  }
+
+  Widget get _defaultPlayIcon {
+    final defaultValue = FlexAudioPlayerCardDefaultValue();
+
+    return Icon(
+      Icons.play_arrow_rounded,
+      color: iconColor ?? defaultValue.white,
+      size: iconSize ?? defaultValue.iconSize,
+    );
   }
 
   Widget get _defaultDurationText {
