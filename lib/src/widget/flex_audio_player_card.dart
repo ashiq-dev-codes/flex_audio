@@ -21,6 +21,7 @@ class FlexAudioPlayerCard extends StatelessWidget {
     this.isPlaying = false,
     this.isLoading = false,
     this.durationTextStyle,
+    this.buildControlButton,
     required this.onPressed,
     this.inactiveTrackColor,
     this.buttonBackgroundColor,
@@ -51,6 +52,8 @@ class FlexAudioPlayerCard extends StatelessWidget {
   final Function(double value)? onChanged;
   final BorderRadiusGeometry? borderRadius;
   final DurationTextPositionEnum durationTextPosition;
+  final Widget? Function(bool isActive, bool isPlaying, bool isLoading)?
+  buildControlButton;
 
   @override
   Widget build(BuildContext context) {
@@ -69,30 +72,12 @@ class FlexAudioPlayerCard extends StatelessWidget {
 
           InkWell(
             onTap: isLoading ? null : onPressed,
-            child: Container(
-              width: 42,
-              height: 42,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: buttonBackgroundColor ?? defaultValue.primary,
-              ),
-              child: Center(
-                child: isLoading
-                    ? SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          color: iconColor ?? defaultValue.white,
-                        ),
-                      )
-                    : isActive && isPlaying
-                    ? pauseIcon ?? _defaultPauseIcon
-                    : playIcon ?? _defaultPlayIcon,
-              ),
-            ),
+            child:
+                buildControlButton?.call(isActive, isPlaying, isLoading) ??
+                _defaultControlButton,
           ),
           const SizedBox(width: 10),
+
           Expanded(
             child: Column(
               children: [
@@ -165,6 +150,33 @@ class FlexAudioPlayerCard extends StatelessWidget {
             ? "--:--" // fallback when duration is unknown
             : _format(isActive ? position : duration),
         style: durationTextStyle ?? defaultValue.durationTextStyle,
+      ),
+    );
+  }
+
+  Widget get _defaultControlButton {
+    final defaultValue = FlexAudioPlayerCardDefaultValue();
+
+    return Container(
+      width: 42,
+      height: 42,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        color: buttonBackgroundColor ?? defaultValue.primary,
+      ),
+      child: Center(
+        child: isLoading
+            ? SizedBox(
+                width: 20,
+                height: 20,
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                  color: iconColor ?? defaultValue.white,
+                ),
+              )
+            : isActive && isPlaying
+            ? pauseIcon ?? _defaultPauseIcon
+            : playIcon ?? _defaultPlayIcon,
       ),
     );
   }

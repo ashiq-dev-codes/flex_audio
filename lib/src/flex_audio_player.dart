@@ -18,6 +18,7 @@ class FlexAudioPlayer extends StatefulWidget {
     this.activeTrackColor,
     this.durationTextStyle,
     required this.audioPath,
+    this.buildControlButton,
     this.inactiveTrackColor,
     this.buttonBackgroundColor,
     required this.audioController,
@@ -40,6 +41,8 @@ class FlexAudioPlayer extends StatefulWidget {
   final BorderRadiusGeometry? borderRadius;
   final FlexAudioPlayerController audioController;
   final DurationTextPositionEnum durationTextPosition;
+  final Widget? Function(bool isActive, bool isPlaying, bool isLoading)?
+  buildControlButton;
 
   @override
   State<FlexAudioPlayer> createState() => _FlexAudioPlayerState();
@@ -113,6 +116,7 @@ class _FlexAudioPlayerState extends State<FlexAudioPlayer> {
                           backgroundColor: widget.backgroundColor,
                           activeTrackColor: widget.activeTrackColor,
                           durationTextStyle: widget.durationTextStyle,
+                          buildControlButton: widget.buildControlButton,
                           inactiveTrackColor: widget.inactiveTrackColor,
                           durationTextPosition: widget.durationTextPosition,
                           buttonBackgroundColor: widget.buttonBackgroundColor,
