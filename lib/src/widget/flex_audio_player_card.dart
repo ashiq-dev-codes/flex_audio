@@ -1,62 +1,72 @@
+import 'package:flex_audio/flex_audio.dart';
 import 'package:flutter/material.dart';
 
 class FlexAudioPlayerCard extends StatelessWidget {
   const FlexAudioPlayerCard({
     super.key,
+    this.padding,
+    this.iconSize,
+    this.showTime,
     this.onChanged,
+    this.iconColor,
+    this.thumbColor,
+    this.trackColor,
+    this.borderRadius,
     required this.max,
     required this.value,
-    this.iconSize = 28.0,
-    this.showTime = true,
+    this.backgroundColor,
     this.isActive = false,
     this.isPlaying = false,
     this.isLoading = false,
+    this.durationTextStyle,
     required this.onPressed,
     this.position = Duration.zero,
     this.duration = Duration.zero,
-    this.iconColor = Colors.white,
-    this.trackColor = Colors.blueAccent,
-    this.thumbColor = Colors.blueAccent,
-    this.backgroundColor = Colors.white,
-    this.borderRadius = const BorderRadius.all(Radius.circular(8)),
-    this.padding = const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+    this.durationTextPosition = DurationTextPositionEnum.none,
   });
   final double max;
   final double value;
   final bool isActive;
-  final bool showTime;
+  final bool? showTime;
   final bool isPlaying;
   final bool isLoading;
-  final Color iconColor;
-  final double iconSize;
-  final Color thumbColor;
-  final Color trackColor;
+  final Color? iconColor;
+  final double? iconSize;
+  final Color? thumbColor;
+  final Color? trackColor;
   final Duration position;
   final Duration duration;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final VoidCallback onPressed;
-  final EdgeInsetsGeometry padding;
-  final BorderRadiusGeometry borderRadius;
+  final EdgeInsetsGeometry? padding;
+  final TextStyle? durationTextStyle;
   final Function(double value)? onChanged;
+  final BorderRadiusGeometry? borderRadius;
+  final DurationTextPositionEnum durationTextPosition;
 
   @override
   Widget build(BuildContext context) {
+    final defaultValue = FlexAudioPlayerCardDefaultValue();
+
     return Container(
-      padding: padding,
+      padding: padding ?? defaultValue.padding,
       decoration: BoxDecoration(
-        color: backgroundColor,
-        borderRadius: borderRadius,
+        color: backgroundColor ?? defaultValue.white,
+        borderRadius: borderRadius ?? defaultValue.borderRadius,
       ),
       child: Row(
         children: [
+          if (durationTextPosition == DurationTextPositionEnum.start)
+            _defaultDurationText,
+
           InkWell(
             onTap: isLoading ? null : onPressed,
             child: Container(
               width: 42,
               height: 42,
               decoration: BoxDecoration(
-                color: trackColor,
                 shape: BoxShape.circle,
+                color: trackColor ?? defaultValue.primary,
               ),
               child: Center(
                 child: isLoading
@@ -65,51 +75,48 @@ class FlexAudioPlayerCard extends StatelessWidget {
                         height: 20,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          color: iconColor,
+                          color: iconColor ?? defaultValue.white,
                         ),
                       )
                     : Icon(
                         isActive && isPlaying
                             ? Icons.pause_rounded
                             : Icons.play_arrow_rounded,
-                        size: iconSize,
-                        color: iconColor,
+                        color: iconColor ?? defaultValue.white,
+                        size: iconSize ?? defaultValue.iconSize,
                       ),
               ),
             ),
           ),
           const SizedBox(width: 10),
           Expanded(
-            child: SliderTheme(
-              data: SliderTheme.of(context).copyWith(
-                trackHeight: 2.5,
-                thumbColor: thumbColor,
-                overlayShape: SliderComponentShape.noOverlay,
-              ),
-              child: Slider(
-                min: 0,
-                max: max,
-                onChanged: onChanged,
-                activeColor: trackColor,
-                value: value.clamp(0, max),
-                inactiveColor: trackColor.withValues(alpha: 0.4),
-              ),
+            child: Column(
+              children: [
+                SliderTheme(
+                  data: SliderTheme.of(context).copyWith(
+                    trackHeight: 2.5,
+                    overlayShape: SliderComponentShape.noOverlay,
+                    thumbColor: thumbColor ?? defaultValue.primary,
+                  ),
+                  child: Slider(
+                    min: 0,
+                    max: max,
+                    onChanged: onChanged,
+                    value: value.clamp(0, max),
+                    activeColor: trackColor ?? defaultValue.primary,
+                    inactiveColor: (trackColor ?? defaultValue.primary)
+                        .withValues(alpha: 0.4),
+                  ),
+                ),
+
+                if (durationTextPosition == DurationTextPositionEnum.bottom)
+                  _defaultDurationText,
+              ],
             ),
           ),
-          if (showTime == true)
-            Padding(
-              padding: const EdgeInsets.only(left: 4),
-              child: Text(
-                duration.inMilliseconds == 0
-                    ? "--:--" // fallback when duration is unknown
-                    : _format(isActive ? position : duration),
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.grey.shade600,
-                ),
-              ),
-            ),
+
+          if (durationTextPosition == DurationTextPositionEnum.end)
+            _defaultDurationText,
         ],
       ),
     );
@@ -119,5 +126,21 @@ class FlexAudioPlayerCard extends StatelessWidget {
     final minutes = duration.inMinutes.toString().padLeft(2, '0');
     final seconds = (duration.inSeconds % 60).toString().padLeft(2, '0');
     return '$minutes:$seconds';
+  }
+
+  Widget get _defaultDurationText {
+    final defaultValue = FlexAudioPlayerCardDefaultValue();
+
+    if (showTime != true) return SizedBox.shrink();
+
+    return Padding(
+      padding: const EdgeInsets.only(left: 4),
+      child: Text(
+        duration.inMilliseconds == 0
+            ? "--:--" // fallback when duration is unknown
+            : _format(isActive ? position : duration),
+        style: durationTextStyle ?? defaultValue.durationTextStyle,
+      ),
+    );
   }
 }
