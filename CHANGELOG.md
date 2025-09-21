@@ -1,7 +1,3 @@
 ## 1.1.1
 
-- Added full customizations for `FlexAudioPlayer`
-  - Custom track colors (active & inactive)
-  - Custom control button
-  - Custom background and border radius
-- Updated example to demonstrate new customizations
+- Updated Dart SDK constraint from `^3.9.2` to `^3.8.1`.
