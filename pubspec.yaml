@@ -1,11 +1,11 @@
 name: flex_audio
 description: A flexible and customizable audio player for Flutter apps.
-version: 1.1.0
+version: 1.1.1
 homepage: https://github.com/ashiq-dev-codes/flex_audio
 repository: https://github.com/ashiq-dev-codes/flex_audio.git
 
 environment:
-  sdk: ^3.9.2
+  sdk: ^3.8.1
   flutter: ">=1.17.0"
 
 dependencies:

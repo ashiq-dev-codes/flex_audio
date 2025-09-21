@@ -1,4 +1,4 @@
-## 1.1.0
+## 1.1.1
 
 - Added full customizations for `FlexAudioPlayer`
   - Custom track colors (active & inactive)
